@@ -6,6 +6,7 @@
 package club.foobars;
 
 import static spark.Spark.*;
+import static j2html.TagCreator.*;
 
 /**
  *
@@ -13,10 +14,25 @@ import static spark.Spark.*;
  */
 public class Main {
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
+        staticFileLocation("/public");
         port(getHerokuAssignedPort());
+
         get("/hello", (req, res) -> "Hello Heroku World");
-        get("/foobar.club", (req, res) -> "Hello Foobarwheelers");
+
+        get("/foobar.club", (req, res) -> {
+            return html().with(
+                    head().with(
+                            title("Title"),
+                            link().withRel("stylesheet").withHref("/css/main.css")
+                    ),
+                    body().with(
+                            div().with(
+                                    h1("Heading!")
+                            )
+                    )
+            ).toString();
+        });
     }
 
     static int getHerokuAssignedPort() {
