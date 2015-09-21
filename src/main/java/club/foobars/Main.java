@@ -9,8 +9,9 @@ import static spark.Spark.*;
 import static j2html.TagCreator.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import spark.ModelAndView;
-import spark.template.freemarker.FreeMarkerEngine;import spark.template.mustache.MustacheTemplateEngine;
+import spark.template.mustache.MustacheTemplateEngine;
 ;
 
 /**
@@ -23,18 +24,19 @@ public class Main {
         staticFileLocation("/public");
         port(getHerokuAssignedPort());
 
-
+        Random r = new Random();
+        int i = r.nextInt(6);
+        String[] colors = {"yellow","red","blue", "white","orange", "purple", "green"};
+        
         Map map = new HashMap();
-        map.put("name", "Sam");
+        map.put("background-color", colors[i]);
+
         // hello.mustache file is in resources/templates directory
-        get("/mustache", (rq, rs) -> 
-                new ModelAndView(map, "hello.mustache"), 
+        get("/", (rq, rs) -> 
+                new ModelAndView(map, "welcome.html"), 
                 new MustacheTemplateEngine()
         );
         
-
-        get("/hello", (req, res) -> "Hello Heroku World");
-
         get("/foobar.club", (req, res) -> {
             return html().with(
                     head().with(
@@ -42,7 +44,7 @@ public class Main {
                             link().withRel("stylesheet").withHref("css/main.css")
                     ),
                     body().with(
-                        img().withSrc("img/costina-mtb-big.png")
+                        img().withSrc("img/costina-mtb-small.png")
                     )
             ).toString();
         });
