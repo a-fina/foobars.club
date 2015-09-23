@@ -31,13 +31,12 @@ public class Main {
         Map map = new HashMap();
         map.put("background-color", colors[i]);
 
-        // hello.mustache file is in resources/templates directory
         get("/", (rq, rs) -> 
-                new ModelAndView(map, "welcome.html"), 
+                new ModelAndView(map, "cover.html"), 
                 new MustacheTemplateEngine()
         );
         
-        get("/foobar.club", (req, res) -> {
+         get("/foobar.club", (req, res) -> {
             return html().with(
                     head().with(
                             title("Foo, Bars & Wheels - Club"),
@@ -48,6 +47,7 @@ public class Main {
                     )
             ).toString();
         });
+        
     }
 
     static int getHerokuAssignedPort() {
