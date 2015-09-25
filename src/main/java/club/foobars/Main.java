@@ -36,7 +36,12 @@ public class Main {
                 new MustacheTemplateEngine()
         );
         
-         get("/foobar.club", (req, res) -> {
+        get("/subscribe", (rq, rs) -> {
+                
+                return "OK";
+        });
+        
+        get("/foobar.club", (req, res) -> {
             return html().with(
                     head().with(
                             title("Foo, Bars & Wheels - Club"),
