@@ -117,7 +117,7 @@
                     <processTypes>
                         <!-- Tell Heroku how to launch your application -->
                         <!-- You might have to remove the ./ in front   -->
-                        <web>java -cp ./target/Foobars.club-1.0-SNAPSHOT-jar-with-dependencies.jar club.foobars.Main</web>
+                        <web>java -cp ./target/${project.artifactId}-${project.version}-jar-with-dependencies.jar club.foobars.Main</web>
                     </processTypes>
                 </configuration>
             </plugin>
